@@ -4,14 +4,14 @@ function [W] = perceptron1Layer(patterns,targets,epochs,eta)
     rng(1);
     
     nData=size(patterns,2);
-    patterns=[patterns; ones(1,nData)];
+    patterns=[patterns; ones(1,nData)]
     
-    W=randn(size(targets,1), size(patterns,1));
+    W=randn(size(targets,1), size(patterns,1))
 %     bla=W*patterns
     for ii=1:epochs
 %         (W*patterns-targets)*(W*patterns-targets)'
 %         Delta_W = -eta*(W*patterns-targets)*patterns';
-        Delta_W=-eta*(sign(W*patterns)-targets)*patterns'./2;
+        D
         W=W+Delta_W;
 
 %         delta_w=zeros(size(targets,1));
