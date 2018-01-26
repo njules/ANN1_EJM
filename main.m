@@ -40,7 +40,8 @@ rng(5);
 input=ones(5);
 
 % Size of one of the datasets (before merging them)
-N=100;  
+N=200;  
+LearngRate=0.01;
 
 % Properties of the datasets (multivariate normal distribution)
 mu = [3,2];
