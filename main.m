@@ -1,10 +1,10 @@
-seed=rng(1);
+rng(1);
 
 %useless
 input=ones(5);
 
 % Size of one of the datasets (before merging them)
-N=100;  
+N=2;  
 
 % Properties of the datasets (multivariate normal distribution)
 mu = [3,2];
@@ -24,9 +24,27 @@ data=[data ; data2];
 clear data2;
 
 % Shuffle the dataset
-data=data(randperm(size(data,1)),:);
+data=data(randperm(size(data,1)),:)'
 
-% Plot that wonder
-figure
-hold on
-gscatter(data(:,1),data(:,2),data(:,3))
+%give the proper names
+% patterns=data(:,1:2);
+% targets=data(:,3);
+data=([0 0;0 1;1 -1])
+
+for i=20:2:20
+    W=perceptron1Layer(data(1:2,:),data(3,:),i,0.001);
+    
+    figure(1)
+    clf
+    hold on
+    % Plot that wonder
+
+    gscatter(data(1,:),data(2,:),data(3,:))
+    xplot=-5:5;
+    yplot=-W(1)/W(2).*xplot+W(3);
+    plot(xplot,yplot);
+    pause(0.5)
+    hold off
+end
+
+
