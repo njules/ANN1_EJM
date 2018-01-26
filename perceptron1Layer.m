@@ -13,9 +13,10 @@ function [W] = perceptron1Layer(patterns,targets,epochs,eta)
 %         Delta_W = -eta*(W*patterns-targets)*patterns';
         Delta_W=-eta*(sign(W*patterns)-targets)*patterns'./2;
         W=W+Delta_W;
-        %error(ii)= sum(sum(abs(sign(W*patterns) - targets)./2));
-        error(ii)= sum(abs(sign(W*patterns) - targets));
+        error(ii)= sum(sum(abs(sign(W*patterns) - targets)./2));
     end
-%     plot(error)
+
+% figure(2)
+% plot(error)
 end
 
