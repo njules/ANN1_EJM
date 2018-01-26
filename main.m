@@ -67,21 +67,21 @@ hold on
 gscatter(data(1,:),data(2,:),data(3,:))
 W=perceptron2layer(data(1:2,:), data(3,:), 20, 0.001, 25, 0.9);
 % W=perceptron1Layer(data(1:2,:),data(3,:),20,0.001);
-% for i=1:1:20
-%     W=perceptron1Layer(data(1:2,:),data(3,:),i,0.001);
-%     
-%     figure(1)
-%     clf
-%     hold on
-%     Plot that wonder
-% 
-%     gscatter(data(1,:),data(2,:),data(3,:))
-%     xplot=-5:5;
-%     yplot=-W(1)/W(2).*xplot-W(3);
-%     plot(xplot,yplot);
-%     pause(0.5)
-%     hold off
-% end
+for i=1:1:20
+    W=perceptron1Layer(data(1:2,:),data(3,:),i,0.001);
+    
+    figure(1)
+    clf
+    hold on
+    %Plot that wonder
+
+    gscatter(data(1,:),data(2,:),data(3,:))
+    xplot=-5:5;
+    yplot=-W(1)/W(2).*xplot-W(3);
+    plot(xplot,yplot);
+    pause(0.5)
+    hold off
+end
 
 %give the proper names
 % patterns=data(:,1:2);
@@ -92,7 +92,7 @@ for i=1:1:20
     W=perceptron1Layer(data(1:2,:),data(3,:),i,LearngRate);
     W_delta=deltaRule1layer(data(1:2,:),data(3,:),i,LearngRate);
  
-    figure(1)
+    figure(3)
     clf
     hold on
     title(sprintf("epoch=%d",i))
@@ -100,8 +100,8 @@ for i=1:1:20
     ylim([-10 10])
     gscatter(data(1,:),data(2,:),data(3,:))
     xplot=-5:5;
-    yplot=-W(1)/W(2).*xplot-W(3);
-    yplot_delta=-W_delta(1)/W_delta(2).*xplot+W_delta(3);
+    yplot=-W(1)/W(2).*xplot-W(3)/W(2);
+    yplot_delta=-W_delta(1)/W_delta(2).*xplot+W_delta(3)/W_delta(2);
     plot(xplot,yplot);
     plot(xplot,yplot_delta);
     legend('-1','1','perceptron','delta');
