@@ -83,7 +83,6 @@ W=perceptron2layer(data(1:2,:), data(3,:), 20, 0.001, 25, 0.9);
 %     hold off
 % end
 
-<<<<<<< HEAD
 %give the proper names
 % patterns=data(:,1:2);
 % targets=data(:,3);
@@ -110,7 +109,5 @@ for i=1:1:20
     
     hold off
 end
-=======
->>>>>>> 0f99c5d29cdeffb2b3abf29b1bb0229cb3e37ce9
 
 

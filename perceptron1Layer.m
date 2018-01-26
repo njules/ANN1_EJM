@@ -8,6 +8,9 @@ function [W] = perceptron1Layer(patterns,targets,epochs,eta)
     
     W=randn(size(targets,1), size(patterns,1));
 %     bla=W*patterns
+
+    error=zeros(epochs,1);
+
     for ii=1:epochs
 %         (W*patterns-targets)*(W*patterns-targets)'
 %         Delta_W = -eta*(W*patterns-targets)*patterns';
@@ -25,5 +28,9 @@ function [W] = perceptron1Layer(patterns,targets,epochs,eta)
 %     
     end
 
+        %error(ii)= sum(sum(abs(sign(W*patterns) - targets)./2));
+        error(ii)= sum(abs(sign(W*patterns) - targets));
+    end
+%     plot(error)
 end
 
