@@ -30,7 +30,7 @@ function [W] = perceptron1Layer(patterns,targets,epochs,eta)
 
         %error(ii)= sum(sum(abs(sign(W*patterns) - targets)./2));
         error(ii)= sum(abs(sign(W*patterns) - targets));
-    end
+ 
 %     plot(error)
 end
 
