@@ -4,8 +4,8 @@ rng(1);
 input=ones(5);
 
 % Size of one of the datasets (before merging them)
-N=200;  
-LearngRate=0.01;
+N=20;  
+LearngRate=0.001;
 
 % Properties of the datasets (multivariate normal distribution)
 mu = [3,2];
@@ -32,9 +32,9 @@ data=data(randperm(size(data,1)),:)';
 % targets=data(:,3);
 % data=([0 0;0 1;1 -1]);
 
-for i=1:2:40
+for i=1:1:20
     W=perceptron1Layer(data(1:2,:),data(3,:),i,LearngRate);
-%     W_delta=deltaRule1layer(data(1:2,:),data(3,:),i,LearngRate);
+    W_delta=deltaRule1layer(data(1:2,:),data(3,:),i,LearngRate);
  
     figure(1)
     clf
@@ -47,8 +47,8 @@ for i=1:2:40
     yplot=-W(1)/W(2).*xplot-W(3);
     yplot_delta=-W_delta(1)/W_delta(2).*xplot+W_delta(3);
     plot(xplot,yplot);
-%     plot(xplot,yplot_delta);
-%     legend('-1','1','perceptron','delta');
+    plot(xplot,yplot_delta);
+    legend('-1','1','perceptron','delta');
     pause(0.2)
     
     hold off

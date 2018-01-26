@@ -10,7 +10,7 @@ function [W] = deltaRule1layer(patterns,targets,epochs,eta)
     bla=W*patterns
     for ii=1:epochs
         (W*patterns-targets)*(W*patterns-targets)'
-        Delta_W = -eta*(W*patterns-targets)*patterns';
+        Delta_W = eta*(W*patterns-targets)*patterns';
         W=W+Delta_W;
 
 %         delta_w=zeros(size(targets,1));
