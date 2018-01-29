@@ -1,6 +1,6 @@
-function [W] = deltaRule1layer(patterns,targets,epochs,eta)
+function [W] = deltaRule1layer(patterns,targets,epochs,eta,seed)
 %deltaRule1layer Do crazy shit man
-rng(4);
+rng(seed);
 
 data=[patterns; targets];
 
@@ -17,21 +17,18 @@ for ii=1:epochs
     Delta_W = -eta*(W*patterns-targets)*patterns';
     W=W+Delta_W;
     
-    %         W=W./norm(W);
-    
-    %         delta_w=zeros(size(targets,1));
-    %         for jj=1:size(targets,1)
-    %             for kk=1:nData
-    %                 delta_w(jj)=delta_w(jj)-eta*patterns(jj,kk)*(W*patterns(:,kk)-targets(jj));
-    %
-    %             end
-    %         end
-    %         W=W+delta_w;
-    plot1(data,W);
+%     %plot (can be commented)
+%     clf
+%     hold on
+%     plot1(data,W);
+%     pause(0.5)
+%     hold off
+%     
+    %error (misclassification)
     error(ii)= sum(abs(sign(W*patterns) - targets))./2;
 end
 figure(7)
+hold on
 plot(error)
-title('error')
 end
 
