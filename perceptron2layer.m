@@ -1,6 +1,7 @@
 function [ w,v ] = perceptron2layer( patterns, targets, epochs, eta, nbhidden, alpha )
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
+data=[patterns;targets];
 ndata=size(patterns,2);
 
 patterns=[patterns; ones(1,ndata)];
@@ -10,6 +11,14 @@ v=randn(size(targets,1), nbhidden+1);
 dw=zeros(size(w));
 dv=zeros(size(v));
 error=zeros(epochs,1);
+
+
+%definition of the grid
+x1range = min(data(1,:)):.03:max(data(1,:));
+x2range = min(data(2,:)):.03:max(data(2,:));
+[xx1, xx2] = meshgrid(x1range,x2range);
+XGrid = [xx1(:) xx2(:)];
+
 for ii=1:epochs
     %forward
     hin = w * patterns;
@@ -17,6 +26,7 @@ for ii=1:epochs
     oin = v * hout;
     out = 2 ./ (1+exp(-oin)) - 1;
     error(ii)= sum(sum(abs(sign(out) - targets)./2));
+    plotperceptron_2(data, w, v, XGrid);
     
     %backward
     delta_o = (out - targets) .* ((1 + out) .* (1 - out)) * 0.5;
@@ -30,5 +40,7 @@ for ii=1:epochs
     v = v + dv .* eta;
     
 end
+plotperceptron_2(data, w, v, XGrid);
 figure(2)
 plot(error)
+end
