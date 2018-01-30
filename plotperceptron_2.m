@@ -26,11 +26,11 @@ yy=XGrid(:,2);
 if mode==1
     %plot the curve
     figure(1)
-    clf
+    hold on
     Y = sign(out);
     gscatter(xx(:), yy(:), Y, [ 0.75 0 0;0 0 0.75]);
     gscatter(data(1,:),data(2,:),data(3,:));
-    
+    pause(0.1)
 
     
 elseif mode==3
