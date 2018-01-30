@@ -1,22 +1,52 @@
-function [ output_args ] = plotperceptron_2( data, W , V, XGrid )
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+function plotperceptron_2( data, W , V, XGrid, mode,fig )
+%PLOTPERCEPTRON_2 []=plotperceptron_2( data, W , V, XGrid, mode,figure )
+%   mode=1 for the part 3.1 of the exercise
+%   mode=3 for the part 3.3
 
+if ~exist('mode', 'var')
+    mode = 1;
+end
+if ~exist('fig', 'var')
+    fig = 1;
+end
 %computation of the curve
 patGrid=[XGrid' ; ones(1,size(XGrid,1))];
 hin = W * patGrid;
 hout = [2 ./ (1+exp(-hin)) - 1 ; ones(1,size(XGrid,1))];
 oin = V * hout;
 out = 2 ./ (1+exp(-oin)) - 1; 
-Y = sign(out);
 
-%plot the curve
-clf
-hold on
-xx1=XGrid(:,1);
-xx2=XGrid(:,2);
-gscatter(xx1(:), xx2(:), Y, [ 0.75 0 0;0 0 0.75]);
-gscatter(data(1,:),data(2,:),data(3,:));
+
+
+xx=XGrid(:,1);
+yy=XGrid(:,2);
+
+if mode==1
+    %plot the curve
+    figure(1)
+    clf
+    Y = sign(out);
+    gscatter(xx(:), yy(:), Y, [ 0.75 0 0;0 0 0.75]);
+    gscatter(data(1,:),data(2,:),data(3,:));
+    
+
+    
+elseif mode==3
+    
+   
+%     hold on
+    gridsize=sqrt(size(data,2));
+    XX = reshape(xx, gridsize, gridsize);
+    YY = reshape(yy, gridsize, gridsize);
+    ZZ = reshape(out, gridsize, gridsize);
+    figure(fig)
+    clf
+    grid on
+    surf(XX,YY,ZZ);
+%     axis([-5 5 -5 5 -0.7 0.7]);
+    
+end
+
 pause(0.1)
 hold off
 end

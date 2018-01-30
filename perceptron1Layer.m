@@ -1,6 +1,6 @@
 function [W] = perceptron1Layer(patterns,targets,epochs,eta,seed)
 %PERCEPTRON Do crazy shit man
-%   function [W] = perceptron1Layer(patterns,targets,epochs,eta)
+%   function [W] = perceptron1Layer(patterns,targets,epochs,eta,seed)
 rng(seed);
 data=[patterns; targets];
 
