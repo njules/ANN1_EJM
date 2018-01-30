@@ -1,6 +1,6 @@
 function [ w,v ] = perceptron2layer( patterns, targets, epochs,...
-    eta, nbhidden, alpha,mode )
-%PERCEPTRON2LAYER function [ w,v ] = perceptron2layer( patterns, targets, epochs, eta, nbhidden, alpha,mode )
+    eta, nbhidden, alpha,mode,PlotIt )
+%PERCEPTRON2LAYER function [ w,v ] = perceptron2layer( patterns, targets, epochs, eta, nbhidden, alpha,PlotIt,mode )
 %   inputs:
 %       patterns
 %       targets
@@ -9,12 +9,17 @@ function [ w,v ] = perceptron2layer( patterns, targets, epochs,...
 %       number of nodes in the hidden layer
 %       alpha
 %       mode
+%       PlotIt (bool)
+
 %
 %   mode=1 for the part 3.1 of the exercise (defalut value)
 %   mode=3 for the part 3.3
 
 if ~exist('mode', 'var')
     mode = 1;
+end
+if ~exist('PlotIt', 'var')
+    PlotIt = true;
 end
 
 rng(10)
@@ -49,7 +54,9 @@ for ii=1:epochs
     oin = v * hout;
     out = 2 ./ (1+exp(-oin)) - 1;
     error(ii)= sum(sum(abs(sign(out) - targets)./2));
-    plotperceptron_2(data, w, v, XGrid,mode);
+    if PlotIt
+        plotperceptron_2(data, w, v, XGrid,mode);
+    end
     
     %backward
     delta_o = (out - targets) .* ((1 + out) .* (1 - out)) * 0.5;
@@ -66,7 +73,10 @@ for ii=1:epochs
 end
 figure(2)
 plot(error)
-figure(3)
-hold on
-plotperceptron_2(data, w, v, XGrid,mode,3);
+hold off
+if PlotIt
+    figure(3)
+    hold on
+    plotperceptron_2(data, w, v, XGrid,mode,3);
+end
 end

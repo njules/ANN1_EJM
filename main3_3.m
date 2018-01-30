@@ -1,9 +1,9 @@
 %% Gaussian approximation
 
 LearningRate=0.001
-NbHiddenNodes=20
-epochs=10
-alpha=0.5
+NbHiddenNodes=60
+epochs=500
+alpha=0.3
 
 % Build data grid
 x=[-5:0.5:5]';
@@ -34,11 +34,13 @@ data=[patterns;targets];
 
 
 [W,V]=perceptron2layer(patterns,targets,epochs,LearningRate,...
-    NbHiddenNodes,alpha,3);
+    NbHiddenNodes,alpha,3,false);
 
 figure(3)
+plotperceptron_2(data, W, V,data(1:2,:)',3,3);
 hold on
 mesh(x, y, z,'EdgeColor','red','FaceColor','none');
+hold off
 
 
 
