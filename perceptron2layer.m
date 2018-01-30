@@ -8,12 +8,13 @@ function [ w,v ] = perceptron2layer( patterns, targets, epochs,...
 %       learning rate
 %       number of nodes in the hidden layer
 %       alpha
-%       mode
-%       PlotIt (bool)
+%       mode    (default=1)
+%       PlotIt  (bool, default=true)
 
 %
 %   mode=1 for the part 3.1 of the exercise (defalut value)
 %   mode=3 for the part 3.3
+%   PlotIt is to say if you want the evolution ploted at every epoch
 
 if ~exist('mode', 'var')
     mode = 1;

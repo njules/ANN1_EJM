@@ -1,7 +1,8 @@
 function plotperceptron_2( data, W , V, XGrid, mode,fig )
-%PLOTPERCEPTRON_2 []=plotperceptron_2( data, W , V, XGrid, mode,figure )
+%PLOTPERCEPTRON_2 []=plotperceptron_2( data, W , V, XGrid, mode,fig )
 %   mode=1 for the part 3.1 of the exercise
 %   mode=3 for the part 3.3
+%   fig is the number of the figure to use (default=1)
 
 if ~exist('mode', 'var')
     mode = 1;
@@ -21,6 +22,7 @@ out = 2 ./ (1+exp(-oin)) - 1;
 xx=XGrid(:,1);
 yy=XGrid(:,2);
 
+% If you still don't know what's that, just read the doc of this very function...
 if mode==1
     %plot the curve
     figure(1)

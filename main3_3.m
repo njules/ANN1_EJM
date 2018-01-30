@@ -1,23 +1,15 @@
 %% Gaussian approximation
 
-LearningRate=0.001
-NbHiddenNodes=60
-epochs=500
-alpha=0.3
+% Parameters
+LearningRate=0.001;
+NbHiddenNodes=60;
+epochs=500;
+alpha=0.3;
 
 % Build data grid
 x=[-5:0.5:5]';
 y=[-5:0.5:5]';
 z=exp(-x.*x*0.1) * exp(-y.*y*0.1)' - 0.5;
-% 
-
-% Plot it
-% colormap jet
-% surf(x,y,z)
-% xlabel('x')
-% ylabel('y')
-% zlabel('z')
-% set(gca, 'FontSize', 14)
 
 % Number of element in z (the whole grid)
 ndata=numel(z);
@@ -32,10 +24,12 @@ patterns = [reshape(xx, 1, ndata); reshape(yy, 1, ndata)];
 data=[patterns;targets];
 % It feels so much better right now...
 
-
+% It's getting serious, man
 [W,V]=perceptron2layer(patterns,targets,epochs,LearningRate,...
     NbHiddenNodes,alpha,3,false);
 
+% Just a nice plot to conclude
+% It's not efficient but fuck it, nothing is optimised anyway
 figure(3)
 plotperceptron_2(data, W, V,data(1:2,:)',3,3);
 hold on
