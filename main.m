@@ -95,7 +95,7 @@ for i=1:1:20
     figure(3)
     clf
     hold on
-    title(sprintf("epoch=%d",i))
+    title(sprintf('epoch=%d',i))
     % Plot that wonder
     ylim([-10 10])
     gscatter(data(1,:),data(2,:),data(3,:))

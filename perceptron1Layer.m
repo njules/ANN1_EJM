@@ -1,36 +1,35 @@
-function [W] = perceptron1Layer(patterns,targets,epochs,eta)
+function [W] = perceptron1Layer(patterns,targets,epochs,eta,seed)
 %PERCEPTRON Do crazy shit man
-%   function [W] = perceptron1Layer(patterns,targets,epochs,eta)
-    rng(1);
+%   function [W] = perceptron1Layer(patterns,targets,epochs,eta,seed)
+rng(seed);
+data=[patterns; targets];
+
+%initialization
+nData=size(patterns,2);
+patterns=[patterns; ones(1,nData)];
+
+W=randn(size(targets,1), size(patterns,1));
+error=zeros(epochs,1);
+
+%update the weigths
+for ii=1:epochs
+    Delta_W=-eta*(sign(W*patterns)-targets)*patterns'./2;
+    W=W+Delta_W;
     
-    nData=size(patterns,2);
-    patterns=[patterns; ones(1,nData)];
+%     %plot (can be commented)
+%     clf
+%     hold on
+%     plot1(data,W);
+%     pause(0.5)
+%     hold off
     
-    W=randn(size(targets,1), size(patterns,1));
-%     bla=W*patterns
+    error(ii)= sum(sum(abs(sign(W*patterns) - targets)./2));
+end
 
-    error=zeros(epochs,1);
 
-    for ii=1:epochs
-%         (W*patterns-targets)*(W*patterns-targets)'
-%         Delta_W = -eta*(W*patterns-targets)*patterns';
-        Delta_W=-eta*(sign(W*patterns)-targets)*patterns'./2;
-        W=W+Delta_W;
+% error(ii)= sum(abs(sign(W*patterns) - targets));
 
-%         delta_w=zeros(size(targets,1));
-%         for jj=1:size(targets,1)
-%             for kk=1:nData
-%                 delta_w(jj)=delta_w(jj)-eta*patterns(jj,kk)*(W*patterns(:,kk)-targets(jj));
-%                 
-%             end
-%         end
-%         W=W+delta_w;
-%     
-    end
-
-        %error(ii)= sum(sum(abs(sign(W*patterns) - targets)./2));
-        error(ii)= sum(abs(sign(W*patterns) - targets));
- 
-%     plot(error)
+figure(7)
+plot(error)
 end
 

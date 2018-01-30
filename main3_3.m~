@@ -1,0 +1,24 @@
+
+% Build data grid
+x=[-5:0.5:5]';
+y=[-5:0.5:5]';
+z=exp(-x.*x*0.1) * exp(-y.*y*0.1)' - 0.5;
+mesh(x, y, z);
+
+% Plot it
+colormap jet
+surf(x,y,z)
+xlabel('x')
+ylabel('y')
+zlabel('z')
+set(gca, 'FontSize', 14)
+
+% Number of element in z (the whole grid)
+ndata=numel(z);
+
+% Fromat the data in a really fancy and convenient way, 
+%   pretty much exactly as suggested by our admired professor.
+%
+targets = reshape (z, 1, ndata);
+[xx, yy] = meshgrid (x, y);
+patterns = [reshape(xx, 1, ndata); reshape(yy, 1, ndata)];
