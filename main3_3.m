@@ -4,12 +4,12 @@ rng(666)
 clear all
 % Parameters
 LearningRate=0.01;
-NbHiddenNodes=21;
-epochs=100;
+NbHiddenNodes=10;
+epochs=70;
 alpha=0.5;
 
 TrainSetSize=0.5; %Percent
-nSamples=13;
+nSamples=441;
 
 
 % Build data grid

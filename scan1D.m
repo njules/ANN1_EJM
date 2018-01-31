@@ -4,12 +4,12 @@ rng(666)
 clear all
 % Parameters
 LearningRate=0.01;
-NbHiddenNodes=1:30;
-epochs=100;
+NbHiddenNodes=[1 3 6 9];
+epochs=70;
 alpha=0.5;
 
 TrainSetSize=0.5; %Percent
-nSamples=100;
+nSamples=441;
 
 param=NbHiddenNodes;
 paramName='NbHiddenNodes';
@@ -55,10 +55,14 @@ for i=param
 %     if i==param(end)
         name=sprintf('./plots/3_3-%s_scan-%d',paramName,i);
         figure(3)
-        set(gca,'fontsize',14)
+        subplot(2,2,N)
         plotperceptron_2(data, W, V,data(1:2,:)',3,3);
         hold on
         mesh(x, y, z,'EdgeColor','red','FaceColor','none');
+        zlim([-0.5 0.5])
+        title(sprintf('# hidden=%d',i))
+        set(gca,'fontsize',14)
+
     %     savefig(name)
     %     saveas(gcf,name,'epsc')
         hold off

@@ -41,15 +41,15 @@ elseif mode==3
     XX = reshape(xx, gridsize, gridsize);
     YY = reshape(yy, gridsize, gridsize);
     ZZ = reshape(out, gridsize, gridsize);
-    figure(fig)
-    clf
-    grid on
+%     figure(fig)
+%     clf
+%     grid on
     surf(XX,YY,ZZ);
 %     axis([-5 5 -5 5 -0.7 0.7]);
     
 end
 
 pause(0.1)
-hold off
+% hold off
 end
 
