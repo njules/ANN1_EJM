@@ -4,13 +4,15 @@ rng(666)
 clear all
 % Parameters
 LearningRate=0.01;
-NbHiddenNodes=21;
+NbHiddenNodes=1:30;
 epochs=100;
 alpha=0.5;
 
 TrainSetSize=0.5; %Percent
 nSamples=100;
 
+param=NbHiddenNodes;
+paramName='NbHiddenNodes';
 
 % Build data grid
 x=[-5:0.5:5]';
@@ -34,38 +36,6 @@ data=[patterns;targets];
 % Ok, let's shuffle it now, that's much more fun
 dataShuffle=data(:,randperm(size(data,2)));
 
-
-% endset=floor(size(data,2)*TrainSetSize);
-
-% TestSet=dataShuffle(:,nSamples+1:end);
-
-% Split the data
-TrainSet=dataShuffle(:,1:nSamples);
-
-% It's getting serious, man
-[W,V,outTrain]=perceptron2layer(TrainSet(1:2,:),TrainSet(3,:),epochs,...
-    LearningRate, NbHiddenNodes,alpha,3,false);
-
-outTot=evalNet(data,W,V);
-%     out = reshape(out, gridsize, gridsize);
-% Just a nice plot to conclude
-% It's not efficient but fuck it, nothing is optimised anyway
-
-%     if i==param(end)
-%     name=sprintf('./plots/3_3-%s_scan-%d',paramName,i);
-    figure(3)
-    set(gca,'fontsize',14)
-    plotperceptron_2(data, W, V,data(1:2,:)',3,3);
-    hold on
-    mesh(x, y, z,'EdgeColor','red','FaceColor','none');
-%     savefig(name)
-%     saveas(gcf,name,'epsc')
-    hold off
-%     end
- error=log(sum((outTot-targets).^2)/size(targets,2))
-
-%% Simple scan
-%{
 N=1;
 for i=param
     
@@ -109,39 +79,3 @@ xlabel(paramName)
 ylabel('Mean Squarred Error')
 % legend('Training set','Total set')
 hold off
-%}
-
-
-
-%% Double Scan
-%{
-error=zeros(size(nSamples,2),size(NbHiddenNodes,2));
-parfor j=NbHiddenNodes
-    e=zeros(1,size(nSamples,2));
-    for i=nSamples
-
-        % Split the data
-        TrainSet=dataShuffle(:,1:i);
-
-        % It's getting serious, man
-        [W,V,outTrain]=perceptron2layer(TrainSet(1:2,:),TrainSet(3,:),epochs,...
-            LearningRate, j,alpha,3,false);
-
-        outTot=evalNet(data,W,V);
-    %     out = reshape(out, gridsize, gridsize);
-
-        e(i)=sum((outTot-targets).^2)/size(targets,2);
-    % %      error(N)=sum((outTot-targets).^2)/size(targets,2);
-    %      errorTrain(i,j)=sum((outTrain-TrainSet(3,:)).^2)/size(TrainSet(3,:),2);
-    %     error(ii)= sum(sum(abs(sign(out) - targets)));
-    end
-    error(:,j)=e
-end
-
-[I,J]=meshgrid(NbHiddenNodes,nSamples);
-figure(7)
-clf
-contourf(I,J,log(error))
-%}
-
-

@@ -1,4 +1,4 @@
-function [ w,v ] = perceptron2layer( patterns, targets, epochs,...
+function [ w,v,out ] = perceptron2layer( patterns, targets, epochs,...
     eta, nbhidden, alpha,mode,PlotIt )
 %PERCEPTRON2LAYER function [ w,v ] = perceptron2layer( patterns, targets, epochs, eta, nbhidden, alpha,PlotIt,mode )
 %   inputs:
@@ -50,11 +50,17 @@ clear error
 
 for ii=1:epochs
     %forward
-    hin = w * patterns;
-    hout = [2 ./ (1+exp(-hin)) - 1 ; ones(1,ndata)];
-    oin = v * hout;
-    out = 2 ./ (1+exp(-oin)) - 1;
-    error(ii)= sum(sum(abs(sign(out) - targets)./2));
+%     hin = w * patterns;
+%     hout = [2 ./ (1+exp(-hin)) - 1 ; ones(1,ndata)];
+%     oin = v * hout;
+%     out = 2 ./ (1+exp(-oin)) - 1;
+    [out, hout]=evalNet(data,w,v);
+    
+    if mode==1
+        error(ii)= sum(sum(abs(sign(out) - targets)./2));
+    elseif mode==3
+        error(ii)=sum((out-targets).^2)/size(targets,2);
+    end
     if PlotIt
         plotperceptron_2(data, w, v, XGrid,mode);
     end
@@ -72,9 +78,11 @@ for ii=1:epochs
     
 
 end
-figure(2)
-plot(error)
-hold off
+% figure(2)
+% plot(error)
+% xlabel('Epochs')
+% ylabel('Error')
+% hold off
 if PlotIt
     figure(3)
     hold on
